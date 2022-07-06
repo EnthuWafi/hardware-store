@@ -19,8 +19,8 @@ public class Main
         int userInput;
 
         //Default Items
-        storeInventory.addItem(new StoreItem("default", 10, 0.2, 10));
-        storeInventory.addItem(new StoreItem("default2", 10, 0.2, 10));
+        storeInventory.add(new StoreItem("default", 10, 0.2, 10));
+        storeInventory.add(new StoreItem("default2", 10, 0.2, 10));
 
         //Test accounts
         idandPassword.addAccount(new Customer("NA", 10, "customer", "customer"));
@@ -56,8 +56,6 @@ public class Main
             }
             System.out.println("Enter any key to continue..\n");
             sc.nextLine();
-            //clear
-            clearScreen();
         }
         //print monthly revenue for management
         
@@ -179,7 +177,7 @@ public class Main
                 //invalid
                 System.out.println("Invalid input.. Please only enter a number between 1-3!");
             }
-            System.out.println("\n============================\n")
+            System.out.println("\n============================\n");
         }
     }
 
@@ -199,7 +197,7 @@ public class Main
                 String itemName = sc.nextLine();
 
                 //does it exist in the store inventory, yes or no?
-                StoreItem storeItem = storeInventory.findItem(itemName);
+                StoreItem storeItem = storeInventory.find(itemName);
                 if (storeItem == null) {
                     System.out.println("Item does not exist!");
                     continue; //skip
@@ -222,7 +220,7 @@ public class Main
                 //create and add item
                 CartItem item = new CartItem(storeItem);
                 item.setQuantity(itemQuantity);
-                customer.getShoppingCart().addToCart(item);
+                customer.getShoppingCart().add(item);
                 System.out.printf("%n%s was added to the Shopping Cart!%n", item.getItemName());
             } else if (userInput == 2) {
                 System.out.println(". . .");
@@ -240,7 +238,7 @@ public class Main
             ShoppingCart cart = customer.getShoppingCart();
             //display product
             System.out.println("\n================== VIEW CART ==================");
-            cart.displayCart();
+            cart.display();
             //choose
             System.out.print("\n[What would you like to do?:]\n\t1) Remove from Cart\n\t2) Proceed To Checkout\n\t3) Back\n>");
             userInput = sc.nextInt();
@@ -251,9 +249,9 @@ public class Main
                 System.out.print("\n[Remove from Cart]\nName of the Item: ");
                 String itemName = sc.nextLine();
                 //does it exist in cart
-                CartItem cartItem = cart.findItem(itemName);
+                CartItem cartItem = cart.find(itemName);
                 if (cartItem != null) {
-                    cart.removeFromCart(cartItem);
+                    cart.remove(cartItem);
                 } else {
                     System.out.println("Item doesn't exist!");
                 }
@@ -340,7 +338,7 @@ public class Main
                 String itemName = sc.nextLine();
 
                 //does it exist in the store inventory, yes or no?
-                if (storeInventory.findItem(itemName) != null) {
+                if (storeInventory.find(itemName) != null) {
                     System.out.println("Item already exist!");
                     continue; //skip
                 }
@@ -359,13 +357,13 @@ public class Main
 
                 //create and add item
                 StoreItem item = new StoreItem(itemName, itemCost, itemDiscountRate, itemStock);
-                storeInventory.addItem(item);
+                storeInventory.add(item);
                 System.out.printf("%n%s was added to the Store Inventory!%n", item.getItemName());
             } else if (userInput == 2){
                 System.out.print("\n[Modify Item]\nName of the Item: ");
                 String itemName = sc.nextLine();
 
-                StoreItem item = storeInventory.findItem(itemName);
+                StoreItem item = storeInventory.find(itemName);
                 //does it exist in the store inventory, yes or no?
                 if (item == null) {
                     System.out.println("Item doesn't exist!");
