@@ -13,4 +13,5 @@ public abstract class Inventory {
 
     public abstract void display();
 
+    public ArrayList<Item> getItemList(){ return itemList;}
 }
