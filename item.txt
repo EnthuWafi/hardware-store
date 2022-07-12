@@ -11,5 +11,5 @@ Door Locks, 50, 10, 30
 Hammer, 60, 20, 70
 Glue, 10, 0.5, 60
 Cement, 70, 10, 40
-Fuses, 25, 10, 40
+Fuses, 35, 10, 40
 Tape, 15, 0.5, 50
