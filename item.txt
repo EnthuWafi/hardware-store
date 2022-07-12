@@ -1,0 +1,15 @@
+1;nuts;10;0.5;80;
+2;bolts;20;10;80;
+3;screws;20;15;80;
+4;nails;15;15;80;
+5;washers;20;10;50;
+6;Screwdriver;20;70;
+7;hinges;40;0.5;50;
+8;pipe;35;40;
+9;door knobs;50;10;30;
+10;door locks;50;10;30;
+11;hammer;30;20;70;
+12;glue;10;0.5;60;
+13;cement;70;10;40;
+14;fuses;25;0;40;
+15;tape;15;0.5;50;
