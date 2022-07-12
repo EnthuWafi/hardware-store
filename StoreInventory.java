@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class StoreInventory extends Inventory
+public class StoreInventory extends Inventory <StoreItem>
 {
     StoreInventory(){
         super();
     }
 
     //processor
-    public void add(Item item){
+    public void add(StoreItem item){
         //avoid duplicates
         StoreItem storeItem = find(item.getItemName());
         if (storeItem == null){
@@ -21,7 +21,7 @@ public class StoreInventory extends Inventory
         }
     }
 
-    public void remove(Item item){
+    public void remove(StoreItem item){
         StoreItem storeItem = find(item.getItemName());
         if (storeItem != null){
             itemList.remove(item);
