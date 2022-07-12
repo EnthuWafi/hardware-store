@@ -15,12 +15,14 @@ public class CartItem extends Item
     }
     //weird copy (copies store item)
     CartItem(StoreItem storeItem){
-        super(storeItem.getItemName(), storeItem.getCost(), storeItem.getDiscountRate());
+        super(storeItem);
         this.quantity = 0;
     }
 
-    public int getQuantity(){return quantity;}
+
     public void setQuantity(int quantity){this.quantity = quantity;}
+
+    public int getQuantity(){return quantity;}
 
     public double calculateCost(){
         double unitPrice = getCost() - (getCost() * getDiscountRate());

@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class ShoppingCart extends Inventory
+public class ShoppingCart extends Inventory <CartItem>
 {
     ShoppingCart(){
         super();
     }
 
     //processor
-    public void add(Item item){
+    public void add(CartItem item){
         //avoid duplicates
         CartItem cartItem = find(item.getItemName());
         if (cartItem == null){
@@ -19,7 +19,7 @@ public class ShoppingCart extends Inventory
         }
 
     }
-    public void remove(Item item){
+    public void remove(CartItem item){
         //only if exist in inventory
         CartItem cartItem = find(item.getItemName());
         if (cartItem != null)

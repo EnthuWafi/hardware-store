@@ -152,7 +152,13 @@ public class Main
         while (loggedIn) {
             System.out.println("========== HARDWARE STORE ==========");
             System.out.println("WELCOME, CUSTOMER " + customer.getFullName());
-            System.out.print("[AVAILABLE OPTIONS]\n\t1) Display Product\n\t2) View Cart\n\t3) Transaction History\n\t4) Log out\n>");
+            System.out.print("""
+                            [AVAILABLE OPTIONS]
+                            \t1) Display Product
+                            \t2) View Cart
+                            \t3) Transaction History
+                            \t4) Log out
+                            >""");
 
             userInput = sc.nextInt();
             sc.nextLine();
@@ -188,7 +194,12 @@ public class Main
             System.out.println("\n================== DISPLAY PRODUCTS ==================");
             storeInventory.display();
             //choose
-            System.out.print("\n[What would you like to do?:]\n\t1) Add to Cart\n\t2) Back\n>");
+            System.out.print("""
+                [What would you like to do?:]
+                \t1) Add to Cart
+                \t2) Back
+                >
+                """);
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -205,15 +216,12 @@ public class Main
 
                 int itemQuantity;
 
-                while(true){
+                do {
                     System.out.print("Enter the Item quantity (0-99): ");
                     itemQuantity = sc.nextInt();
                     sc.nextLine();
-                    if (itemQuantity <= storeItem.getStock()){
-                        break;
-                    }
                     //repeats until valid
-                }
+                } while (itemQuantity > storeItem.getStock());
                 //reduce stock
                 storeItem.setStock(storeItem.getStock() - itemQuantity);
 
@@ -240,7 +248,12 @@ public class Main
             System.out.println("\n================== VIEW CART ==================");
             cart.display();
             //choose
-            System.out.print("\n[What would you like to do?:]\n\t1) Remove from Cart\n\t2) Proceed To Checkout\n\t3) Back\n>");
+            System.out.print("""
+                [What would you like to do?:]
+                \t1) Remove from Cart
+                \t2) Proceed To Checkout
+                \t3) Back
+                >""");
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -292,8 +305,13 @@ public class Main
         while (loggedIn) {
             System.out.println("========== HARDWARE STORE ==========");
             System.out.println("WELCOME, ADMIN " + admin.getFullName());
-            System.out.print("[AVAILABLE OPTIONS]\n\t1) Display Product\n\t" +
-                    "2) View Accounts\n\t3) Customer Transactions\n\t4) Log out\n>");
+            System.out.print("""
+                    [AVAILABLE OPTIONS]
+                    \t1) Display Product
+                    \t2) View Accounts
+                    \t3) Customer Transactions
+                    \t4) Log out
+                    >""");
 
             userInput = sc.nextInt();
             sc.nextLine();
@@ -329,7 +347,12 @@ public class Main
             System.out.println("\n================== DISPLAY PRODUCTS ==================");
             storeInventory.display();
             //choose
-            System.out.print("\n[What would you like to do?:]\n\t1) Add Item to Inventory\n\t2) Modify Item\n\t3) Back\n>");
+            System.out.print("""
+                [What would you like to do?:]
+                \t1) Add Item to Inventory
+                \t2) Modify Item
+                \t3) Back
+                >""");
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -386,7 +409,13 @@ public class Main
         int userInput = 0;
         while (true){
             //Might be changed if I decide to implement item code
-            System.out.print("\n[What to modify?]\n\t2. Cost\n\t3. Discount Rate\n\t4. Stock\n\t5. Back\n>");
+            System.out.print("""
+            [What to modify?]
+            \t2. Cost
+            \t3. Discount Rate
+            \t4. Stock
+            \t5. Back
+            >""");
             userInput = sc.nextInt();
             sc.nextLine();
 
