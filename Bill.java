@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class Bill {
 
     private LocalDateTime dateTime;
 
-    private PrintWriter billsOutput;
+    private File filePath;
 
     Bill(Customer customer){
         fullName = customer.getFullName();
@@ -24,11 +25,12 @@ public class Bill {
 
         dateTime = LocalDateTime.now();
 
-        try {
-            billsOutput = new PrintWriter("bills\\" + userID + "\\" + getDateTime() + ".txt");
-        } catch (FileNotFoundException e) {
-            System.out.println(e.toString());
-        }
+        //generate folders
+        File billsFolder = new File("bills");
+        billsFolder.mkdir();
+        File userFolder = new File(billsFolder,userID);
+        userFolder.mkdir();
+        filePath = new File(userFolder, getDateTime() + ".txt");
     }
 
 
@@ -55,19 +57,25 @@ public class Bill {
         System.out.printf("%-73s   RM%11.2f%n", "Order Total", cart.calculateCart());
         System.out.print("----------------------------------------------------------------------------------------\n");
 
-        //file output
-        billsOutput.printf("%nBill Generated on %s", getDateTime());
-        billsOutput.printf("%n%-5s %-30s %-16s %-15s %-3s   %-10s%n", "No", "Item Name", "Unit Price", "Item Discount", "Oty", "Total");
-        billsOutput.print("----------------------------------------------------------------------------------------\n");
-        for (int i = 0; i < cart.getItemList().size(); i++){
-            CartItem item = (CartItem) cart.getItemList().get(i);
+        try {
+            PrintWriter billsOutput = new PrintWriter(filePath);
+            //file output
+            billsOutput.printf("%nBill Generated on %s", getDateTime());
+            billsOutput.printf("%n%-5s %-30s %-16s %-15s %-3s   %-10s%n", "No", "Item Name", "Unit Price", "Item Discount", "Oty", "Total");
+            billsOutput.print("----------------------------------------------------------------------------------------\n");
+            for (int i = 0; i < cart.getItemList().size(); i++) {
+                CartItem item = (CartItem) cart.getItemList().get(i);
 
-            billsOutput.printf("%-5s %-30s RM%11.2f %16s %5d   RM%11.2f%n", (i+1)+".", item.getItemName(),
-                    item.getCost(), item.discountInPercentage()+"%", item.getQuantity(), item.calculateCost());
+                billsOutput.printf("%-5s %-30s RM%11.2f %16s %5d   RM%11.2f%n", (i + 1) + ".", item.getItemName(),
+                        item.getCost(), item.discountInPercentage() + "%", item.getQuantity(), item.calculateCost());
+            }
+            billsOutput.print("\n----------------------------------------------------------------------------------------\n");
+            billsOutput.printf("%-73s   RM%11.2f%n", "Order Total", cart.calculateCart());
+            billsOutput.print("----------------------------------------------------------------------------------------\n");
+            billsOutput.close();
         }
-        billsOutput.print("\n----------------------------------------------------------------------------------------\n");
-        billsOutput.printf("%-73s   RM%11.2f%n", "Order Total", cart.calculateCart());
-        billsOutput.print("----------------------------------------------------------------------------------------\n");
-        billsOutput.close();
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
 }

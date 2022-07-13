@@ -63,12 +63,7 @@ public class Main
 
             while (true) {
                 System.out.print("============ HARDWARE SHOP MANAGEMENT System ============\n");
-                System.out.print("""
-                        [MAIN MENU]
-                        \t1) Register
-                        \t2) Login
-                        \t3) Exit Program
-                        >""");
+                System.out.print("[MAIN MENU]\n\t1) Register\n\t2) Login\n\t3) Exit Program\n>");
 
                 userInput = sc.nextInt();
                 sc.nextLine();
@@ -97,7 +92,7 @@ public class Main
             }
         }
         catch (FileNotFoundException e){
-            System.out.println(e.toString());
+            System.out.println(e);
         }
         //print monthly revenue for management
         
@@ -116,11 +111,7 @@ public class Main
         
         System.out.println("============ USER REGISTRATION ============\n");
         
-        System.out.println("""
-        [What account will you be making?:]
-        \t1) Customer Account
-        \t2) Admin Account
-        >""");
+        System.out.println("[What account will you be making?:]\n\t1) Customer Account\n\t2) Admin Account\n>");
         userInput = sc.nextInt();
         sc.nextLine();
         
@@ -198,13 +189,7 @@ public class Main
         while (loggedIn) {
             System.out.println("========== HARDWARE STORE ==========");
             System.out.println("WELCOME, CUSTOMER " + customer.getFullName());
-            System.out.print("""
-                            [AVAILABLE OPTIONS]
-                            \t1) Display Product
-                            \t2) View Cart
-                            \t3) Transaction History
-                            \t4) Log out
-                            >""");
+            System.out.print("[AVAILABLE OPTIONS]\n\t1) Display Product\n\t2) View Cart\n\t3) Transaction History\n\t4) Log out \n>");
 
             userInput = sc.nextInt();
             sc.nextLine();
@@ -239,13 +224,9 @@ public class Main
             //display product
             System.out.println("\n================== DISPLAY PRODUCTS ==================");
             storeInventory.display();
+            System.out.println("=========================================================");
             //choose
-            System.out.print("""
-                [What would you like to do?:]
-                \t1) Add to Cart
-                \t2) Back
-                >
-                """);
+            System.out.print("[What would you like to do?:]\n\t1) Add to Cart\n\t2) Back\n>");
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -291,15 +272,11 @@ public class Main
         while(true) {
             ShoppingCart cart = customer.getShoppingCart();
             //display product
-            System.out.println("\n================== VIEW CART ==================");
+            System.out.println("\n=================== VIEW CART ===================");
             cart.display();
+            System.out.println("=========================================================");
             //choose
-            System.out.print("""
-                [What would you like to do?:]
-                \t1) Remove from Cart
-                \t2) Proceed To Checkout
-                \t3) Back
-                >""");
+            System.out.print("[What would you like to do?:]\n\t1) Remove from Cart\n\t2) Proceed To Checkout\n\t3) Back\n>");
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -350,13 +327,7 @@ public class Main
         while (true) {
             System.out.println("========== HARDWARE STORE ==========");
             System.out.println("WELCOME, ADMIN " + admin.getFullName());
-            System.out.print("""
-                    [AVAILABLE OPTIONS]
-                    \t1) Display Product
-                    \t2) View Accounts
-                    \t3) Customer Transactions
-                    \t4) Log out
-                    >""");
+            System.out.print("[AVAILABLE OPTIONS]\n\t1) Display Product\n\t2) View Accounts\n\t3) Customer Transactions\n\t4) Log out \n>");
 
             userInput = sc.nextInt();
             sc.nextLine();
@@ -392,12 +363,7 @@ public class Main
             System.out.println("\n================== DISPLAY PRODUCTS ==================");
             admin.getStoreInventory().display();
             //choose
-            System.out.print("""
-                [What would you like to do?:]
-                \t1) Add Item to Inventory
-                \t2) Modify Item
-                \t3) Back
-                >""");
+            System.out.print("[What would you like to do?:]\n\t1) Add Item to Inventory\n\t2) Modify Item\n\t3) Back\n>");
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -454,13 +420,7 @@ public class Main
         int userInput;
         while (true){
             //Might be changed if I decide to implement item code
-            System.out.print("""
-            [What to modify?]
-            \t1. Cost
-            \t2. Discount Rate
-            \t3. Stock
-            \t4. Back
-            >""");
+            System.out.print("[What to modify?]\n\t1. Cost\n\t2. Discount Rate\n\t3. Stock\n\t4. Back \n>");
             userInput = sc.nextInt();
             sc.nextLine();
 
@@ -531,7 +491,7 @@ public class Main
             else {
                 System.out.println("Please only enter a number between 1-2!");
             }
-            System.out.println("----");
+            System.out.println();
         }
         System.out.println();
     }
