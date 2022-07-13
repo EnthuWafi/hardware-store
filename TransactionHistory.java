@@ -20,7 +20,7 @@ public class TransactionHistory {
         for (int i = 0; i < bills.size(); i++){
             Bill bill = bills.get(i);
             System.out.printf("%n%-30s %14d  RM%11.2f %-20s", bill.getFullName(), bill.getTotalQuantity(),
-                    bill.getTotalCost(), bill.getDate());
+                    bill.getTotalCost(), bill.getDateTime());
         }
     }
     

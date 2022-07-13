@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main
 {
@@ -18,44 +21,83 @@ public class Main
         //Start of program
         int userInput;
 
-        //Default Items
-        storeInventory.add(new StoreItem("default", 10, 0.2, 10));
-        storeInventory.add(new StoreItem("default2", 10, 0.2, 10));
-
-        //Test accounts
-        idandPassword.addAccount(new Customer("NA", 10, "customer", "customer"));
-        idandPassword.addAccount(new Admin("NA", 10, "admin", "admin", storeInventory));
-
         System.out.print("***** Hardware Shop Management System ***** ~ Created by GROUP10\n\n");
-        while (true){
-            System.out.print("============ HARDWARE SHOP MANAGEMENT System ============\n");
-            System.out.print("[MAIN MENU]\n\t1) Register\n\t2) Login\n\t3) Exit Program\n>");
-            
-            userInput = sc.nextInt();
-            sc.nextLine();
+        try {
+            File inputStoreFile = new File("Item.txt");
+            File inputAccountFile = new File("Account.txt");
 
-            System.out.println();
-            //Register
-            if (userInput == 1){
-                System.out.println("Register");
-                registerPath();
-            }
-            //Login
-            else if (userInput == 2){
-                System.out.println("Login");
-                loginPath();
-            }
-            //Exit Program
-            else if (userInput == 3) {
-                System.out.println("Exit");
+            Scanner inStore = new Scanner(inputStoreFile);
+            Scanner inAccount = new Scanner(inputAccountFile);
 
-                break;
+            //read store items file
+            while (inStore.hasNextLine()){
+                String nextLine = inStore.nextLine();
+                StringTokenizer st = new StringTokenizer(nextLine, ",");
+
+                String itemName = st.nextToken();
+                double cost = Double.parseDouble(st.nextToken());
+                double discount = Double.parseDouble(st.nextToken());
+                int stock = Integer.parseInt(st.nextToken());
+
+                storeInventory.add(new StoreItem(itemName, cost, discount, stock));
             }
-            else{
-                System.out.print("Please only choose a number between 1 to 3.");
+
+            //read accounts
+            while (inAccount.hasNextLine()){
+                String nextLine = inAccount.nextLine();
+                StringTokenizer st = new StringTokenizer(nextLine, ",");
+
+                String fullName = st.nextToken();
+                int age = Integer.parseInt(st.nextToken());
+                String userID = st.nextToken();
+                String password = st.nextToken();
+                boolean isAdmin = Boolean.parseBoolean(st.nextToken());
+
+                if (isAdmin){
+                    idandPassword.addAccount(new Admin(fullName, age, userID, password, storeInventory, transactionHistory, idandPassword));
+                }
+                else {
+                    idandPassword.addAccount(new Customer(fullName, age, userID, password));
+                }
             }
-            System.out.println("Enter any key to continue..\n");
-            sc.nextLine();
+
+            while (true) {
+                System.out.print("============ HARDWARE SHOP MANAGEMENT System ============\n");
+                System.out.print("""
+                        [MAIN MENU]
+                        \t1) Register
+                        \t2) Login
+                        \t3) Exit Program
+                        >""");
+
+                userInput = sc.nextInt();
+                sc.nextLine();
+
+                System.out.println();
+                //Register
+                if (userInput == 1) {
+                    System.out.println("Register");
+                    registerPath();
+                }
+                //Login
+                else if (userInput == 2) {
+                    System.out.println("Login");
+                    loginPath();
+                }
+                //Exit Program
+                else if (userInput == 3) {
+                    System.out.println("Exit");
+
+                    break;
+                } else {
+                    System.out.print("Please only choose a number between 1 to 3.");
+                }
+                System.out.println("Enter any key to continue..\n");
+                sc.nextLine();
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println(e.toString());
         }
         //print monthly revenue for management
         
@@ -74,7 +116,11 @@ public class Main
         
         System.out.println("============ USER REGISTRATION ============\n");
         
-        System.out.println("[What account will you be making?:]\n\t1) Customer Account\n\t2) Admin Account\n>");
+        System.out.println("""
+        [What account will you be making?:]
+        \t1) Customer Account
+        \t2) Admin Account
+        >""");
         userInput = sc.nextInt();
         sc.nextLine();
         
@@ -98,7 +144,7 @@ public class Main
                 user = new Customer(fullName, age, userID, password);
             }
             else {
-                user = new Admin(fullName, age, userID, password, storeInventory);
+                user = new Admin(fullName, age, userID, password, storeInventory, transactionHistory, idandPassword);
             }
 
             if (idandPassword.findAccount(userID, password) == null){
@@ -300,9 +346,8 @@ public class Main
 
     static void adminPath(Admin admin){
         int userInput;
-        boolean loggedIn = true;
 
-        while (loggedIn) {
+        while (true) {
             System.out.println("========== HARDWARE STORE ==========");
             System.out.println("WELCOME, ADMIN " + admin.getFullName());
             System.out.print("""
@@ -324,14 +369,14 @@ public class Main
             } else if (userInput == 3){
                 //transaction
                 System.out.println("[Transaction History]");
-                transactionHistory.displayTransaction();
+                admin.getTransactionHistory().displayTransaction();
 
                 System.out.println();
             }
             else if (userInput == 4) {
                 //log out
                 System.out.println("Logging out...");
-                loggedIn = false;
+                break;
             } else {
                 //invalid
                 System.out.println("Invalid input.. Please only enter a number between 1-3!");
@@ -345,7 +390,7 @@ public class Main
         while (true) {
             //display product
             System.out.println("\n================== DISPLAY PRODUCTS ==================");
-            storeInventory.display();
+            admin.getStoreInventory().display();
             //choose
             System.out.print("""
                 [What would you like to do?:]
@@ -406,30 +451,27 @@ public class Main
     }
 
     static void adminProductModifyPath(StoreItem item){
-        int userInput = 0;
+        int userInput;
         while (true){
             //Might be changed if I decide to implement item code
             System.out.print("""
             [What to modify?]
-            \t2. Cost
-            \t3. Discount Rate
-            \t4. Stock
-            \t5. Back
+            \t1. Cost
+            \t2. Discount Rate
+            \t3. Stock
+            \t4. Back
             >""");
             userInput = sc.nextInt();
             sc.nextLine();
 
-            if (userInput == 1){
-
-            }
-            else if (userInput == 2) {
+            if (userInput == 1) {
                 System.out.printf("Modify Cost (CURRENT: RM%.2f): RM", item.getCost());
                 double itemCost = sc.nextDouble();
                 sc.nextLine();
 
                 item.setCost(itemCost);
             }
-            else if (userInput == 3){
+            else if (userInput == 2){
                 System.out.printf("Modify Discount Rate (CURRENT: %.2f): ", item.getDiscountRate());
                 double itemDiscountRate = sc.nextDouble();
                 sc.nextLine();
@@ -437,28 +479,28 @@ public class Main
                 item.setDiscountRate(itemDiscountRate);
             }
 
-            else if (userInput == 4) {
+            else if (userInput == 3) {
                 System.out.printf("Modify Stock (CURRENT: %d): ", item.getStock());
                 int itemStock = sc.nextInt();
                 sc.nextLine();
 
                 item.setStock(itemStock);
             }
-            else if (userInput == 5){
+            else if (userInput == 4){
                 System.out.println(". . ." );
                 break;
             } else {
                 System.out.println("Please only enter a number between 1-5!");
             }
-            System.out.println();
+            System.out.println("--------");
         }
     }
 
     static void adminAccountPath(Admin admin){
-        int userInput = 0;
+        int userInput;
         while (true) {
             System.out.println("[All Registered Accounts]");
-            idandPassword.displayAccount();
+            admin.getIdandPassword().displayAccount();
 
             //edit acc?
             System.out.print("\n[What to do]\n\t1. Remove Account\n\t2. Back\n");
@@ -489,6 +531,7 @@ public class Main
             else {
                 System.out.println("Please only enter a number between 1-2!");
             }
+            System.out.println("----");
         }
         System.out.println();
     }
