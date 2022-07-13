@@ -1,3 +1,3 @@
 Admin, admin, admin, true
-ABDUL WAFI BIN CHE AB.RAHIM, 19, EnthuWafi, wafipassword, false
-ABDUL MUHAIMIN BIN CHE AB.RAHIM, 20, EminCool, eminpassword, false
+Abdul Wafi bin Che Ab.Rahim, 19, EnthuWafi, wafipassword, false
+Abdul Muhaimin bin Che Ab.Rahim, 20, EminCool, eminpassword, false
