@@ -34,7 +34,7 @@ public class Item
     public void setItem(String itemName, double cost, double discountRate){
         this.itemName = itemName;
         this.cost= cost;
-        this.discountRate = cost;
+        this.discountRate = discountRate;
     }
     
     //accessor
