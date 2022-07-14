@@ -1,15 +1,16 @@
-Nuts,10,0.5,80
-Bolts,20,0.1,80
-Screws,20,0.05,80
-Nails,15,0.2,80
-Washers,20,0.4,50
-Screwdriver,100,0.4,70
-Hinges,40,0.5,50
-Pipe,35,0.3,40
-Door Knobs,50,0.3,30
-Door Locks,50,0.1,30
-Hammer,60,0.1,70
-Glue,10,0.1,60
-Cement,70,0.4,40
-Fuses,25,0.1,40
-Tape,15,0.5,50
+Nuts,0.10,0,100
+Bolts,0.30,0,100
+Screws,0.20,0,100
+Nails,0.10,0,100
+Washers,100,0.4,50
+Screwdriver,5.99,0.2,70
+Hinges,110,0.2,50
+Pipe,7,0.3,40
+Door Knobs,10,0.3,30
+Door Locks,5,0.1,30
+Hammer,20,0.1,70
+Glue,5,0.1,60
+Cement,10,0.4,40
+Fuses,5,0.1,40
+Tape,4,0.2,50
+Power Tools Set,99.99,0.3,10

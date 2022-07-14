@@ -1,3 +1,10 @@
-Admin,0,admin,admin,true
-Abdul Wafi bin Che Ab.Rahim,9,EnthuWafi,wafipassword,false
-Abdul Muhaimin bin Che Ab.Rahim,20, EminCool,eminpassword,false
+Abdul Wafi bin Che Ab.Rahim,19,EnthuWafi,wafipassword,true
+Abdul Muhaimin bin Che Ab.Rahim,20,EminCool,eminpassword,false
+Muhammed Khairun Nasir bin Hasyim Salleh,22,muhammeh,2273887b,false
+Nur Zainatul Idham,21,nurzham,nurzham33,false
+Muhamed Hj Syed Ammar bin Che Naqiyuddin,31,muhadin,e29bc701,true
+Mohamad Haji Rasid Arief bin Nik Kahar,25,mohamahar,mohama121,false
+Mohammed Ashrof bin Wan Shapiein,40,mohamin,mohaminKK,false
+Nur Hjh Najah Fikri binti Shahnon Khaliq,32,nurhliq,nur123,false
+Mohd Hafizsyakirin Yajid,20,mohdhaid,mohd123,false
+Muhamad Azmin bin Solekhan,31,muhahan,muha432,true
